@@ -46,12 +46,11 @@ Example:
 ```json
 {
 	"timestamp": 1485778030,
-	"readings": [
-		"PM25": 201.1,
+	"readings": {
+		"PM25": 201.1
 		"PM10": 102.0
-	]
+	}
 }
-
 ```
 
 **timestamp** - Unix Epoch Time GMT+0000
