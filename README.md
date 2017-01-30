@@ -64,6 +64,8 @@ Example:
 - `PM10` – PM10 (unit: **µg/m³**)
 - `PM25` – PM2.5 (unit: **µg/m³**)
 - `SO2` – Sulfur Dioxide (unit: **µg/m³**)
+- `TEMP` – Temperature (unit: **Celsius**)
+- `HUM` – Humidity (unit: **%**)
 
 All Float values.
 
