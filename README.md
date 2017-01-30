@@ -48,14 +48,14 @@ Example:
 	{
 		"timestamp": 1485778030,
 		"readings": {
-			"PM25": 201.1,
+			"PM2.5": 201.1,
 			"PM10": 102.0
 		}
 	},
 	{
 		"timestamp": 1485778031,
 		"readings": {
-			"PM25": 202.1,
+			"PM2.5": 202.1,
 			"PM10": 101.0
 		}
 	}
@@ -71,7 +71,7 @@ Example:
 - `NO2` – Nitrogen Dioxide (unit: **µg/m³**)
 - `O3` – Ozone (unit: **µg/m³**)
 - `PM10` – PM10 (unit: **µg/m³**)
-- `PM25` – PM2.5 (unit: **µg/m³**)
+- `PM2.5` – PM2.5 (unit: **µg/m³**)
 - `SO2` – Sulfur Dioxide (unit: **µg/m³**)
 - `TEMP` – Temperature (unit: **Celsius**)
 - `HUM` – Humidity (unit: **%**)
