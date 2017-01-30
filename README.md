@@ -48,7 +48,7 @@ Example:
 	{
 		"timestamp": 1485778030,
 		"readings": {
-			"PM25": 201.1,
+			"PM2_5": 201.1,
 			"PM10": 102.0,
 			"TEMP": 12.7
 		}
@@ -56,17 +56,21 @@ Example:
 	{
 		"timestamp": 1485778031,
 		"readings": {
-			"PM25": 202.1,
+			"PM2_5": 202.1,
 			"PM10": 101.0
 		}
 	}
 ]
 ```
 
-Payload shall be an array of at least one **observation**. Clients may choose to send one observation per request or to send them in bulk. Each **observation** shall be independent of others. 
+Payload shall be an array of at least one **observation**. 
+Clients may choose to send one observation per request or to send them in bulk. 
+Each **observation** shall be independent of others. 
 
 **observation** - Object containing a **timestamp** and **readings**
+
 **timestamp** - Unix Epoch Time GMT+0000
+
 **readings** - Object containing at least one association between **Reading type** and its value at **timestamp**
 
 ### Reading types 
@@ -76,7 +80,7 @@ Payload shall be an array of at least one **observation**. Clients may choose to
 - `NO2` – Nitrogen Dioxide (unit: **µg/m³**)
 - `O3` – Ozone (unit: **µg/m³**)
 - `PM10` – PM10 (unit: **µg/m³**)
-- `PM25` – PM2.5 (unit: **µg/m³**)
+- `PM2_5` – PM2.5 (unit: **µg/m³**)
 - `SO2` – Sulfur Dioxide (unit: **µg/m³**)
 - `TEMP` – Temperature (unit: **Celsius**)
 - `HUM` – Humidity (unit: **%**)
@@ -137,17 +141,21 @@ Desired scenario:
 Example:
 ```json
 {
-	"manufacturer": "",
-	"model": "",
+	"manufacturer": "ACME INC",
+	"model": "X9000",
 	...
 }
 ```
 
+This may contain more meta-data about the sensor. TBD.
+
 **Response:**
 
-Status 200, JSON
-```json
-{"secret": [SECRET]}
+256-bit `SECRET`.
+
+Status 200, `text/plain` 
+```
+F9954C7A7A668E16A6572B4C49DA4
 ```
 
 ### Reading request
