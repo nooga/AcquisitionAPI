@@ -38,13 +38,6 @@ Based on Universally Unique IDentifier ([rfc4122](https://tools.ietf.org/html/rf
 
 **Example SUID:** `123e4567-e89b-12d3-a456-426655440000`
 
-#### Authentication
-
-Sensor will receive `Secret Token` during registration.
-For secure identification of the device `HMAC` will be used to send hash with every payload.
-
-Secret Token length is 256 bytes.
-
 ### New sensor auto-registration
 
 Desired scenario:
@@ -90,7 +83,7 @@ All Float values.
 
 ## REST API - ROUGUE variant
 
-This variant is to be used in DIY devices, prototypes and sensor with poor accuracy.
+This variant is to be used in DIY devices, prototypes and sensor with poor accuracy. No authentication is used, using `SUID` for the first time will register the device.
 
 ### Reading request
 
@@ -110,6 +103,11 @@ This protocol is to be used by certified devices and readings should be consider
 
 SSL/TLS Secure transport is required.
 
+#### Authentication
+
+Sensor will receive `SECRET` during registration.
+For secure identification of the device `HMAC` will be used to send hash with every payload. The `SECRET` length is 256 bytes.
+
 ### Registration 
 
 Registration is automatic and will be performed during first request (or next if failed).
@@ -122,9 +120,9 @@ Registration is automatic and will be performed during first request (or next if
 
 `OpenSmogHash [HASH]`
 
-If no such header is sent the server should register the device and sent the SECRET. 
+If no such header is sent the server should register the device and sent the `SECRET`. 
 
-**WARNING:** If device is reflashed and forgot the Secret it should provide different SUID.
+**WARNING:** If device is reflashed and forgot the Secret it should provide different `SUID`.
 
 **Payload:**
 
@@ -136,7 +134,7 @@ Status 200, empty response
 
 ## OpenSmogHash (HMAC)
 
-Entire payload hashed (SHA256) with concatenated Secret at the end.
+Entire payload hashed (SHA256) with concatenated `SECRET` at the end.
 
 Pseudocode: 
 
