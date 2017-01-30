@@ -44,13 +44,22 @@ Based on Universally Unique IDentifier ([rfc4122](https://tools.ietf.org/html/rf
 Example:
 
 ```json
-{
-	"timestamp": 1485778030,
-	"readings": [
-		"PM25": 201.1
-	]
-}
-
+[
+	{
+		"timestamp": 1485778030,
+		"readings": {
+			"PM25": 201.1,
+			"PM10": 102.0
+		}
+	},
+	{
+		"timestamp": 1485778031,
+		"readings": {
+			"PM25": 202.1,
+			"PM10": 101.0
+		}
+	}
+]
 ```
 
 **timestamp** - Unix Epoch Time GMT+0000
