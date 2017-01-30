@@ -21,12 +21,12 @@
 - Particulate Matter (PM2.5) - Concentration, unit: **µg/m³**
 - Sulfur Dioxide - Concentration, unit: **µg/m³**
 
-## Protocols (to be selected)
+## Protocols
 
 - MQTT (ISO/IEC PRF 20922)
 - REST HTTP(S)
 
-### Sensor authentication and identification
+## Sensor identification
 
 #### Sensor Unique Identifier (SUID)
 
@@ -38,16 +38,6 @@ Based on Universally Unique IDentifier ([rfc4122](https://tools.ietf.org/html/rf
 
 **Example SUID:** `123e4567-e89b-12d3-a456-426655440000`
 
-### New sensor auto-registration
-
-Desired scenario:
-
-- Sensor is powered and connected to the internet.
-- Device should use DHCP and start data acuisition.
-- User goes to `sensor.opensmog.org`
-- Enters the SUID (printed on package as well as o the device sticker). 
-- User enters the address (or lat/lon) of sensor location.
-- Device is ready.
 
 ## JSON Payload
 
@@ -111,6 +101,15 @@ For secure identification of the device `HMAC` will be used to send hash with ev
 ### Registration 
 
 Registration is automatic and will be performed during first request (or next if failed).
+
+Desired scenario:
+
+- Sensor is powered and connected to the internet.
+- Device should use DHCP and start data acuisition.
+- User goes to `sensor.opensmog.org`
+- Enters the SUID (printed on package as well as o the device sticker). 
+- User enters the address (or lat/lon) of sensor location.
+- Device is ready.
 
 ### Reading request
 
