@@ -48,21 +48,26 @@ Example:
 	{
 		"timestamp": 1485778030,
 		"readings": {
-			"PM2.5": 201.1,
-			"PM10": 102.0
+			"PM25": 201.1,
+			"PM10": 102.0,
+			"TEMP": 12.7
 		}
 	},
 	{
 		"timestamp": 1485778031,
 		"readings": {
-			"PM2.5": 202.1,
+			"PM25": 202.1,
 			"PM10": 101.0
 		}
 	}
 ]
 ```
 
+Payload shall be an array of at least one **observation**. Clients may choose to send one observation per request or to send them in bulk. Each **observation** shall be independent of others. 
+
+**observation** - Object containing a **timestamp** and **readings**
 **timestamp** - Unix Epoch Time GMT+0000
+**readings** - Object containing at least one association between **Reading type** and its value at **timestamp**
 
 ### Reading types 
 
@@ -71,10 +76,11 @@ Example:
 - `NO2` – Nitrogen Dioxide (unit: **µg/m³**)
 - `O3` – Ozone (unit: **µg/m³**)
 - `PM10` – PM10 (unit: **µg/m³**)
-- `PM2.5` – PM2.5 (unit: **µg/m³**)
+- `PM25` – PM2.5 (unit: **µg/m³**)
 - `SO2` – Sulfur Dioxide (unit: **µg/m³**)
 - `TEMP` – Temperature (unit: **Celsius**)
 - `HUM` – Humidity (unit: **%**)
+- `PRES` - Atmospheric Pressure (unit: **hPa**)
 
 All Float values.
 
@@ -88,7 +94,7 @@ This variant is to be used in DIY devices, prototypes and sensor with poor accur
 
 ### Reading request
 
-`POST \sensors\[SUID]\readings`
+`POST /sensors/[SUID]/readings`
 
 **Payload:**
 
@@ -116,23 +122,48 @@ Registration is automatic and will be performed during first request (or next if
 Desired scenario:
 
 - Sensor is powered and connected to the internet.
-- Device should use DHCP and start data acuisition.
+- Device should use DHCP and start data acquisition.
 - User goes to `sensor.opensmog.org`
-- Enters the SUID (printed on package as well as o the device sticker). 
-- User enters the address (or lat/lon) of sensor location.
+- Enters the SUID (printed on package as well as on the device sticker). 
+- User enters the street address (or lat/lon) of sensor location.
 - Device is ready.
+
+### Registration request
+
+`PUT /sensors/[SUID]`
+
+**Payload:**
+
+Example:
+```json
+{
+	"manufacturer": "",
+	"model": "",
+	...
+}
+```
+
+**Response:**
+
+Status 200, JSON
+```json
+{"secret": [SECRET]}
+```
 
 ### Reading request
 
-`POST \sensors\[SUID]\readings`
+`POST /sensors/[SUID]/readings`
 
 **Headers:**
 
-`OpenSmogHash [HASH]`
+`Authorization: OpenSmogHash [HASH]`
 
-If no such header is sent the server should register the device and sent the `SECRET`. 
+If no such header is sent and the `SUID` is not registered via **SECURE** API, the server should assume **ROGUE** API variant.
+If no such header is sent and the `SUID` is registered via **SECURE** API, the server should respond with 403 Forbidden.
+If the header is sent and the `SUID` is not registered via **SECURE** API, the server should ignore the header.
+If `HASH` is not correct, the server should respond with 401 Unauthorized. 
 
-**WARNING:** If device is reflashed and forgot the Secret it should provide different `SUID`.
+**WARNING:** If device is reflashed and forgot the `SECRET` it should provide a new `SUID`.
 
 **Payload:**
 
